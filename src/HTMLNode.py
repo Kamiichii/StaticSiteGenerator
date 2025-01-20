@@ -1,3 +1,4 @@
+
 class HTMLNode:
     def __init__(self,tag = None,value = None,children = None,props = None):
         self.tag = tag
@@ -13,6 +14,9 @@ class HTMLNode:
                return ""
           return " ".join(f'"{key}": "{value}"' for key, value in self.props.items())
     
+    
+
+    
     def __eq__(self,other):
          if(self.tag == other.tag and
             self.value == other.value and
@@ -22,4 +26,20 @@ class HTMLNode:
          
     def __repr__(self):
          return f"HTMLNode({self.tag},{self.value},{self.children},{self.props})"
+    
+class LeafNode(HTMLNode):
+        
+     def __init__(self, tag,value, props=None):
+        super().__init__(tag, value, None, props)
+
+     def to_html(self):            
+            if self.value== None:
+                raise ValueError
+            elif self.tag == None:
+                return f"{self.value}"
+            else:
+                 return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+
+     def __repr__(self):            
+           return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
