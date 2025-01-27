@@ -1,6 +1,6 @@
 import unittest
 
-from Splitnodes import split_nodes_delimiter,split_nodes_image,split_nodes_link
+from Splitnodes import split_nodes_delimiter,split_nodes_image,split_nodes_link,text_to_textnodes
 from textnode import *
 
 class TestSplitnodes(unittest.TestCase):
@@ -144,6 +144,23 @@ class TestSplitnodes(unittest.TestCase):
             ],
             new_nodes,
         )
+    def test_everything_combined(self):
+        self.assertListEqual([
+            TextNode("This is ", TextType.NORMAL),
+            TextNode("text", TextType.BOLD),
+            TextNode(" with an ", TextType.NORMAL),
+            TextNode("italic", TextType.ITALIC),
+            TextNode(" word and a ", TextType.NORMAL),
+            TextNode("code block", TextType.CODE),
+            TextNode(" and an ", TextType.NORMAL),
+            TextNode("obi wan image", TextType.IMAGES, "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", TextType.NORMAL),
+            TextNode("link", TextType.LINKS, "https://boot.dev")
+            ] ,
+            text_to_textnodes("This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"))
+            
+            
+            
     
     
 
