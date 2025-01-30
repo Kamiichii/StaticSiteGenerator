@@ -1,6 +1,7 @@
 import re
 
 
+
 def extract_markdown_images(text):
     tuples_list = re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)       
     return tuples_list
@@ -19,6 +20,8 @@ def markdown_to_blocks(markdown):
             blocks.append(block.strip())
     
     return blocks
+
+
 
 
 
