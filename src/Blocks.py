@@ -52,7 +52,7 @@ def qblock_to_html_node(text):
     child_nodes = []
     for item in items:
         if item[1:].strip():
-           child_nodes.extend(text_to_child_node(item[1:]))
+           child_nodes.extend(text_to_child_node(item[1:].strip()))
     return ParentNode(tag="blockquote",children=child_nodes)
 
 def ulist_to_html_node(text):
@@ -81,7 +81,7 @@ def heading_to_html_node(markdown):
             break
     if counter > 6:
         raise ValueError("Heading cant have more than 6 hashes")
-    return ParentNode(tag=f"h{counter}",children=text_to_child_node(markdown[counter:]))
+    return ParentNode(tag=f"h{counter}",children=text_to_child_node(markdown[counter:].strip()))
 
 def paragraph_to_html_node(text):
     lines = text.split("\n")
