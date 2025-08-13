@@ -1,4 +1,6 @@
 import re 
+import os
+from Blocks import markdown_to_html_node 
 
 
 def extract_title(markdown):
@@ -9,3 +11,17 @@ def extract_title(markdown):
     else:
         return h1[0].strip()
 
+def generate_page(from_path,template_path,dest_path):
+    print(f"Generating page from {from_path} to {dest_path} using {template_path}")
+    with open(from_path, "r") as from_file:
+        from_file_contents = from_file.read()
+    with open(template_path, "r") as template_file:
+        template_contents = template_file.read()
+    html = markdown_to_html_node(from_file_contents).to_html()
+    title = extract_title(from_file_contents)
+    new_template = template_contents.replace("{{ Title }}",title).replace("{{ Content }}",html)
+    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+    with open(dest_path, "w") as dest_file:
+      dest_file.write(new_template)
+
+    

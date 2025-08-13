@@ -51,7 +51,8 @@ def qblock_to_html_node(text):
     items = text.split("\n")
     child_nodes = []
     for item in items:
-        child_nodes.extend(text_to_child_node(item[1:]))
+        if item[1:].strip():
+           child_nodes.extend(text_to_child_node(item[1:]))
     return ParentNode(tag="blockquote",children=child_nodes)
 
 def ulist_to_html_node(text):
