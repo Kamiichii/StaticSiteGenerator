@@ -2,7 +2,7 @@ import os
 import shutil
 
 def copy_content_to_public(src_dir):
-    dest_dir = "./public"
+    dest_dir = "./docs"
     
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir)
