@@ -1,5 +1,6 @@
 import re 
 import os
+import pathlib
 from Blocks import markdown_to_html_node 
 
 
@@ -24,4 +25,14 @@ def generate_page(from_path,template_path,dest_path):
     with open(dest_path, "w") as dest_file:
       dest_file.write(new_template)
 
+def generate_pages_recursive(dir_path_content,template_path,dest_dir_path):
     
+    for name in os.listdir(dir_path_content):
+        dir_path = os.path.join(dir_path_content,name)
+        dest_path = os.path.join(dest_dir_path,name)
+        if os.path.isdir(dir_path):
+            generate_pages_recursive(dir_path,template_path,dest_path)
+        elif re.match(r"(.*?).md$",name):
+            dest_path = pathlib.Path(dest_path).with_suffix(".html")
+            generate_page(dir_path, template_path, dest_path)
+            
